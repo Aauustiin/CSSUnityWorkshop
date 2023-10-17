@@ -173,8 +173,6 @@ In this situation, it is common to call the empty GameObject the "Parent", and t
 
 **Task**: Using what you learnt from making the bird move, try making the pipes move from the right side of the screen to the left. They should start moving when the game starts, and they should not be affected by gravity. Aim for something like [this](https://i.imgur.com/9lbVxEW.gifv).
 
-![Moving Pipes]
-
 Now we don't want just one set of pipes, we want many. There is a way for us to essentially copy and paste the pipes that we've already made whenever we need new ones. Drag the pipe parent from the hierarchy panel to the project panel. By doing this you have made what is called a prefab. This is a little like copying something onto your clipboard. You can edit the prefab by double clicking on it, and you can stop editing it by clicking the back arrow near the top of the hierarchy view. 
 
 > Note: Whenever you make changes to the prefab, those changes are mirrored in all the places you use the prefab.
