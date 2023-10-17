@@ -25,25 +25,25 @@ Once you've created a project, the Unity editor will start up. The user interfac
 
 ### The Bird
 
-The beating heart of “Flappy Bird” is the flappy bird - let's start by making one. The hierarchy panel (shown below) lists all of the GameObjects (things) in your game. You'll see that we currently have just two GameObjects: a camera and a light. The camera defines the player's view into the game world, and the light will light everything up. Let's add one more GameObject to represent our bird. Right click on the inspector panel and select 2D Objects → Sprite → Square.
+The beating heart of “Flappy Bird” is the flappy bird - let's start by making one. The hierarchy panel (shown below) lists all of the GameObjects (things) in your game. You'll see that we currently have just two GameObjects: a camera and a light. The camera defines the player's view into the game world, and the light will light everything up. Let's add one more GameObject to represent our bird. Right click on the hierachy panel and select 2D Objects → Sprite → Square.
 
-ADD PICTURE HERE
+![Hierarchy Panel](https://i.imgur.com/0EyMKqg.png)
 
 > Note: I lied, the hierarchy panel doesn't show everything in your game. Games can be split into smaller pieces called scenes for organizational purposes. You can edit one scene at a time. The hierarchy panel shows all the GameObjects in the scene that you're currently editing. Since this game is small, we'll keep everything within one scene for simplicity. You can see at the top of the hierarchy panel that Unity has named this scene “SampleScene”.
 
 You should now see that a white square has appeared in the scene panel (shown below). This panel shows a visual representation of everything in your game world. You can move the view around by holding down the middle mouse button and dragging. Zooming in and out can be done with the scroll wheel.
 
-ADD PICTURE HERE
+![Scene View](https://i.imgur.com/VFaF5WK.png)
 
 You can select entities by either clicking on them in the hierarchy panel, or clicking on them in the scene panel. Once you have done so, direct your attention to the inspector panel (shown below). The inspector panel contains information about the GameObject that you currently have selected. This information is grouped together into what are called components. You'll see a “Transform” component that describes where the bird is, and a “Sprite Renderer” component that describes how the bird looks.
 
-ADD PICTURE HERE
+![Inspector Panel](https://i.imgur.com/n2GElBC.png)
 
 > Note: You can change the name of our bird GameObject from “Square” to something more descriptive by changing the name field at the top of the inspector panel.
 
 So now we have an object to represent the bird. If we press the play button at the top-center of the screen, we can see how it behaves when the game is running. The game panel (shown below) will come to the fore, you should see that the bird currently does… nothing. You can press the play button again to stop the game.
 
-ADD PICTURE HERE
+![Game Panel](https://i.imgur.com/OEBGG7T.png)
 
 > Note: When you press play, the Unity editor enters “Play Mode”. Any changes that are made during play mode will be reverted when exiting play mode, except for changes to code, which will usually cause Unity to spam you with warnings and errors.
 
@@ -60,9 +60,7 @@ Lets tackle these one by one.
 
 #### Falling
 
-One of the things that Unity handles is the simulation of physics. We can tell Unity to include our bird in its physics simulations by giving it a component called “Rigidbody 2D”. Do this by selecting the bird, clicking add component in the inspector view, and then selecting Physics 2D → Rigidbody 2D. If you press play again, you should see that the bird is able to fall!
-
-ADD GIF HERE
+One of the things that Unity handles is the simulation of physics. We can tell Unity to include our bird in its physics simulations by giving it a component called “Rigidbody 2D”. Do this by selecting the bird, clicking add component in the inspector view, and then selecting Physics 2D → Rigidbody 2D. If you press play again, you should see that [the bird is able to fall](https://i.imgur.com/vsncYAf.gifv)!
 
 > Note: You can change the physical properties of the bird (e.g. its mass, to what extent it's affected by gravity) by changing the options listed under the Bird's Rigidbody 2D component in the inspector.
 
@@ -70,7 +68,7 @@ ADD GIF HERE
 
 Now we need to have the bird fly upwards when the player presses a specified button. This isn't something that Unity has already done for us, so we'll have to make our own component by writing a script. Select the bird, click “Add Component” in the inspector, select “New Script” and name your script something sensible. Your script should appear in the project view (shown below), double click on it to open it for editing.
 
-ADD PICTURE HERE
+![Project Panel](https://i.imgur.com/PEBrXpM.png)
 
 > Note: The project panel is simply a file explorer that allows you to view all of the files under the assets folder in your project.
 
@@ -132,7 +130,7 @@ void Update()
 
 If we press space while the game is running, we should see the following in the Console panel (shown below). To view the console, you'll need to click on the word “Console” at the top of the project panel.
 
-ADD PICTURE HERE
+![Console Panel](https://i.imgur.com/xe3dMOf.png)
 
 So we can recognize user input, now we need to interface with Unity's physics system to make the bird fly up when the space bar is pressed. Our bird's Rigidbody 2D component has a function that allows us to apply force to the bird. But how do we use this function from within our script? Well, we can use the GetComponent\<>() function to access other components on the same GameObject as our script, like so:
 
@@ -157,9 +155,7 @@ If we give these arguments, our function call will look like this:
 rigidbody2D.AddForce(new Vector2(0, 10), ForceMode.Impulse);
 ```
 
-Try putting this inside our “if” statement and pressing play, you should see something like this:
-
-ADD GIF HERE
+Try putting this inside our “if” statement and pressing play, you should see something like [this](https://i.imgur.com/wWCX1fJ.gifv)
 
 You've now learned about most of the major fundamental concepts in Unity. You can navigate the user interface and the Unity ecosystem. You can create GameObjects and modify the behavior of those GameObjects by adding components. You can even make your own components that react to user input and interact with other components. 
 
@@ -167,17 +163,17 @@ You've now learned about most of the major fundamental concepts in Unity. You ca
 
 For the pipes, let's make two square sprites. We'll elongate them by tweaking the y component of the scale field inside of their transform component. Make sure that there's some space between them for the bird to fit through - you can tweak their positions by selecting them and dragging the arrows that pop up in the scene view. Aim to end up with something like this:
 
-ADD PICTURE HERE
+![Making Pipes](https://i.imgur.com/25sq3wy.png)
 
 These pipes are currently two separate objects, but in Flappy Bird they always move as one. It would make sense to group the two pipes together, and move the group as a whole rather than each pipe individually. To do this, let's create a GameObject with no components on it to represent the group. Right click in the hierarchy and select "Create Empty". Now in the hierarchy panel, click and drag both of your pipes underneath the new GameObject. Your hierarchy should look like this:
 
-ADD PICTURE HERE
+![Pipe Hierarchy](https://i.imgur.com/D9EQXXj.png)
 
 In this situation, it is common to call the empty GameObject the "Parent", and the grouped GameObjects “Children”. Whenever the parent moves, the children will move too.
 
-**Task**: Using what you learnt from making the bird move, try making the pipes move from the right side of the screen to the left. They should start moving when the game starts, and they should not be affected by gravity. Aim for something like this:
+**Task**: Using what you learnt from making the bird move, try making the pipes move from the right side of the screen to the left. They should start moving when the game starts, and they should not be affected by gravity. Aim for something like [this](https://i.imgur.com/9lbVxEW.gifv).
 
-ADD GIF HERE
+![Moving Pipes]
 
 Now we don't want just one set of pipes, we want many. There is a way for us to essentially copy and paste the pipes that we've already made whenever we need new ones. Drag the pipe parent from the hierarchy panel to the project panel. By doing this you have made what is called a prefab. This is a little like copying something onto your clipboard. You can edit the prefab by double clicking on it, and you can stop editing it by clicking the back arrow near the top of the hierarchy view. 
 
@@ -268,10 +264,6 @@ public class PipeManager : MonoBehaviour
 
 > Note: We keep installing new pipes, but we never delete the old ones. This means Unity is still keeping track of all the old ones, which can get more and more computationally expensive as more pipes are instantiated. Instantiate actually returns a value which points to the GameObject it creates. You can use this to keep track of old pipes, and delete (Delete(object)) them when they are no longer useful.
 
-You should end up with something like this:
-
-ADD GIF HERE
-
 Problem: These pipes are all being instantiated at the same place. Let's add some random variations to their y-position like so:
 
 ```plaintext
@@ -279,13 +271,11 @@ var pipe = Instantiate(pipePrefab);
 pipe.transform.position += new Vector3(0, Random.Range(-2.5f, 2.5f));
 ```
 
-Much better!
+Much better! You should end up with something like [this](https://i.imgur.com/TRPn3mT.gifv).
 
 ### Game Over
 
-You may notice that our bird can go right through the pipe! We can remedy this by adding Box Collider 2D components to all of our sprites. The box collider will define the area within your sprite that cannot pass through other sprites. Your result should look something like this:
-
-ADD GIF HERE
+You may notice that our bird can go right through the pipe! We can remedy this by adding Box Collider 2D components to all of our sprites. The box collider will define the area within your sprite that cannot pass through other sprites. Your result should look something like [this](https://i.imgur.com/k2iZoIa.gifv)
 
 > Note: Adding collision to the pipes can be a little tricky. Remember to edit the prefab, rather than whatever's in the scene hierarchy. Also, remember that we want the box colliders to be on the "children" GameObjects, because they're the ones with the sprites.
 
@@ -310,7 +300,7 @@ Now, for the “You Lose!” text. In the hierarchy panel, we can create some te
 
 You'll notice that three things have appeared in your scene hierarchy: EventSystem, Canvas, and Text (TMP). The EventSystem is something that Unity provides to help the user interface register user input. The text is the thing that we intended to create, and the Canvas is a GameObject that all UI in your game world must be a child of. Select the text and centre it by experimenting with the options in the “Rect Transform” component, then edit the "TextMeshPro - Text (UI)" component to make it say "You Lose!”. The game panel should show something like this:
 
-ADD PICTURE HERE
+![You Lose Text](https://i.imgur.com/EWj4s2Z.png)
 
 Now, we don't want the loss text showing up all the time, only when the player loses. We can make it inactive by clicking on the text GameObject and unchecking the box at the top of the inspector. Now it's invisible! We can reactivate it when the bird collides into something like so:
 
@@ -340,9 +330,7 @@ Now your “lose text” condition should be working how we want it to!
 
 > Note: The [Unity Documentation](https://docs.unity3d.com/ScriptReference/index.html) will be very useful in finding out more information about functions that you haven't used before.
 
-You should aim for something like this:
-
-ADD GIF HERE
+You should aim for something like [this](https://i.imgur.com/FxuHcY6.gifv).
 
 If you're having trouble, check out the example project in this repo for hints.
 
