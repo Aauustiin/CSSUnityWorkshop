@@ -152,7 +152,7 @@ We need to give the AddForce function two arguments:
 If we give these arguments, our function call will look like this:
 
 ```plaintext
-rigidbody2D.AddForce(new Vector2(0, 10), ForceMode.Impulse);
+rigidbody2d.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
 ```
 
 Try putting this inside our “if” statement and pressing play, you should see something like [this](https://i.imgur.com/wWCX1fJ.gifv)
